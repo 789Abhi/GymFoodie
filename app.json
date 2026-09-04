@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "GymFoodie",
-    "slug": "gymfoodie",
+    "slug": "gym-foodie",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
