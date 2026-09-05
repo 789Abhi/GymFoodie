@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,6 +14,20 @@ import { useGymFoodieStore } from '@/store/useGymFoodieStore';
 import { useTheme } from '@/hooks/useTheme';
 import RoleSwitcherModal from '@/components/RoleSwitcherModal';
 import type { KitchenOrderStatus, PayoutTransaction } from '@/types';
+
+const getMealImage = (mealName: string) => {
+  const lower = mealName.toLowerCase();
+  if (lower.includes('paneer')) {
+    return require('@/assets/images/teriyaki-paneer.jpg');
+  }
+  if (lower.includes('egg') || lower.includes('burrito')) {
+    return require('@/assets/images/egg-burrito.jpg');
+  }
+  if (lower.includes('salmon')) {
+    return require('@/assets/images/salmon-avocado.jpg');
+  }
+  return require('@/assets/images/chicken-quinoa.jpg');
+};
 
 // Mock Restaurant/Kitchen Payout Transactions
 const INITIAL_KITCHEN_TRANSACTIONS: PayoutTransaction[] = [
@@ -347,7 +362,11 @@ export default function RestaurantAdminDashboard() {
 
                     {/* Meal Info */}
                     <View style={[styles.mealBanner, { backgroundColor: theme.bgPrimary, borderColor: theme.border }]}>
-                      <Text style={styles.mealEmoji}>{ord.mealEmoji}</Text>
+                      <Image
+                        source={getMealImage(ord.mealName)}
+                        style={styles.ticketMealImage}
+                        resizeMode="cover"
+                      />
                       <View style={{ flex: 1 }}>
                         <Text style={[styles.mealTitle, { color: theme.textPrimary }]}>{ord.mealName}</Text>
                         <Text style={[styles.macroSpecs, { color: theme.textMuted }]}>
@@ -410,17 +429,17 @@ export default function RestaurantAdminDashboard() {
 
               <View style={styles.batchRows}>
                 <View style={styles.batchItem}>
-                  <Text style={{ fontSize: 20 }}>🍗</Text>
+                  <Image source={require('@/assets/images/chicken-quinoa.jpg')} style={styles.batchThumbImage} resizeMode="cover" />
                   <Text style={[styles.batchName, { color: theme.textPrimary }]}>Grilled Herb Chicken & Quinoa</Text>
                   <Text style={[styles.batchCount, { color: theme.green }]}>24 portions</Text>
                 </View>
                 <View style={styles.batchItem}>
-                  <Text style={{ fontSize: 20 }}>🧆</Text>
+                  <Image source={require('@/assets/images/teriyaki-paneer.jpg')} style={styles.batchThumbImage} resizeMode="cover" />
                   <Text style={[styles.batchName, { color: theme.textPrimary }]}>Teriyaki Paneer & Brown Rice</Text>
                   <Text style={[styles.batchCount, { color: theme.green }]}>12 portions</Text>
                 </View>
                 <View style={styles.batchItem}>
-                  <Text style={{ fontSize: 20 }}>🌯</Text>
+                  <Image source={require('@/assets/images/egg-burrito.jpg')} style={styles.batchThumbImage} resizeMode="cover" />
                   <Text style={[styles.batchName, { color: theme.textPrimary }]}>Egg White Burrito Bowl</Text>
                   <Text style={[styles.batchCount, { color: theme.green }]}>8 portions</Text>
                 </View>
@@ -845,14 +864,16 @@ const styles = StyleSheet.create({
   mealBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
     padding: 10,
     borderRadius: 12,
     borderWidth: 1,
     marginBottom: 10,
   },
-  mealEmoji: {
-    fontSize: 24,
+  ticketMealImage: {
+    width: 52,
+    height: 52,
+    borderRadius: 10,
   },
   mealTitle: {
     fontSize: 13,
@@ -922,6 +943,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+  },
+  batchThumbImage: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
   },
   batchName: {
     flex: 1,

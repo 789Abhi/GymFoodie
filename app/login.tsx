@@ -9,6 +9,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -125,9 +126,11 @@ export default function LoginScreen() {
 
         {/* Brand Header */}
         <View style={styles.brandSection}>
-          <View style={[styles.brandLogoBox, { backgroundColor: theme.bgCard, borderColor: theme.green }]}>
-            <Text style={styles.brandEmoji}>🏋️🍃</Text>
-          </View>
+          <Image
+            source={require('@/assets/images/logo.png')}
+            style={styles.brandLogoImage}
+            resizeMode="contain"
+          />
           <Text style={styles.brandTitle}>
             <Text style={{ color: theme.textPrimary }}>Gym</Text>
             <Text style={{ color: theme.green }}>Foodie</Text>
@@ -268,19 +271,12 @@ const styles = StyleSheet.create({
   },
   brandSection: {
     alignItems: 'center',
-    marginBottom: 22,
+    marginBottom: 20,
   },
-  brandLogoBox: {
-    width: 68,
-    height: 68,
-    borderRadius: 34,
-    borderWidth: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  brandEmoji: {
-    fontSize: 28,
+  brandLogoImage: {
+    width: 140,
+    height: 70,
+    marginBottom: 6,
   },
   brandTitle: {
     fontSize: 26,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/hooks/useTheme';
 import { useGymFoodieStore } from '@/store/useGymFoodieStore';
@@ -27,9 +27,11 @@ export default function Header() {
       <View style={[styles.container, { paddingTop: Math.max(insets.top, 12), backgroundColor: theme.bgPrimary }]}>
         {/* Logo Area */}
         <View style={styles.logoRow}>
-          <View style={[styles.logoIcon, { backgroundColor: theme.bgCard, borderColor: theme.green }]}>
-            <Text style={styles.logoEmoji}>🏋️</Text>
-          </View>
+          <Image
+            source={require('@/assets/images/logo.png')}
+            style={styles.headerLogoImage}
+            resizeMode="contain"
+          />
           <View>
             <Text style={styles.logoText}>
               <Text style={{ color: theme.textPrimary }}>Gym</Text>
@@ -81,16 +83,9 @@ const styles = StyleSheet.create({
     gap: 8,
     flexShrink: 1,
   },
-  logoIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  logoEmoji: {
-    fontSize: 18,
+  headerLogoImage: {
+    width: 46,
+    height: 34,
   },
   logoText: {
     fontSize: 16,

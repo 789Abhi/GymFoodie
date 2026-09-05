@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { router } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
 import { useGymFoodieStore } from '@/store/useGymFoodieStore';
@@ -18,9 +18,11 @@ export default function SplashScreen() {
 
       {/* Logo */}
       <View style={styles.logoSection}>
-        <View style={[styles.logoCircle, { backgroundColor: theme.bgCard, borderColor: theme.green }]}>
-          <Text style={styles.logoEmoji}>🏋️🍃</Text>
-        </View>
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={styles.splashLogoImage}
+          resizeMode="contain"
+        />
         <Text style={styles.logoText}>
           <Text style={{ color: theme.textPrimary }}>Gym</Text>
           <Text style={{ color: theme.green }}>Foodie</Text>
@@ -32,10 +34,17 @@ export default function SplashScreen() {
         </View>
       </View>
 
-      {/* Hero Image Placeholder */}
-      <View style={[styles.heroImage, { backgroundColor: theme.bgCard, borderColor: theme.border }]}>
-        <Text style={styles.heroEmoji}>🥗🏋️</Text>
-        <Text style={[styles.heroLabel, { color: theme.textMuted }]}>Chef-Prepared Macro Meals & Gym Access</Text>
+      {/* Hero Image Card */}
+      <View style={[styles.heroCard, { borderColor: theme.border }]}>
+        <Image
+          source={require('@/assets/images/salmon-avocado.jpg')}
+          style={styles.heroRealImage}
+          resizeMode="cover"
+        />
+        <View style={styles.heroOverlay}>
+          <Text style={styles.heroBadgeText}>⚡ CHEF PREPARED • MACRO CRAFTED</Text>
+          <Text style={styles.heroOverlayTitle}>Gourmet Macro Meals & Gym Access</Text>
+        </View>
       </View>
 
       {/* Description */}
@@ -100,32 +109,50 @@ const styles = StyleSheet.create({
   },
 
   logoSection: { alignItems: 'center', marginBottom: 24 },
-  logoCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    borderWidth: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
+  splashLogoImage: {
+    width: 140,
+    height: 72,
+    marginBottom: 8,
   },
-  logoEmoji: { fontSize: 32 },
   logoText: { fontSize: 32, fontWeight: 'bold', marginBottom: 8 },
   taglineRow: { flexDirection: 'row', alignItems: 'center' },
   line: { flex: 1, height: 1 },
   tagline: { fontSize: 10, letterSpacing: 2 },
 
-  heroImage: {
+  heroCard: {
     width: '100%',
     height: 180,
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
     marginBottom: 24,
     borderWidth: 1,
+    position: 'relative',
   },
-  heroEmoji: { fontSize: 56, marginBottom: 8 },
-  heroLabel: { fontSize: 13 },
+  heroRealImage: {
+    width: '100%',
+    height: '100%',
+  },
+  heroOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: 'rgba(9, 13, 22, 0.82)',
+  },
+  heroBadgeText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#10B981',
+    letterSpacing: 1,
+    marginBottom: 2,
+  },
+  heroOverlayTitle: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#F8FAFC',
+  },
 
   description: {
     fontSize: 15,

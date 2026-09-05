@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { router } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
 import Header from '@/components/Header';
@@ -80,9 +80,13 @@ export default function HomeScreen() {
             <Text style={[styles.mealTime, { color: theme.textMuted }]}>⏰ Today 1:00 PM</Text>
           </View>
 
-          {/* Meal Image Placeholder */}
+          {/* Meal Image */}
           <View style={[styles.mealImageBox, { backgroundColor: theme.bgPrimary }]}>
-            <Text style={styles.mealEmoji}>🥗</Text>
+            <Image
+              source={require('@/assets/images/chicken-quinoa.jpg')}
+              style={styles.mealRealImage}
+              resizeMode="cover"
+            />
           </View>
 
           {/* Delivery Info */}
@@ -236,10 +240,15 @@ const styles = StyleSheet.create({
   mealBadgeText: { fontSize: 10, fontWeight: 'bold' },
   mealTime: { fontSize: 11 },
   mealImageBox: {
-    height: 120,
-    borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginBottom: 12,
+    height: 180,
+    borderRadius: 14,
+    overflow: 'hidden',
+    marginBottom: 12,
   },
-  mealEmoji: { fontSize: 56 },
+  mealRealImage: {
+    width: '100%',
+    height: '100%',
+  },
   deliveryRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 },
   deliveryIcon: { fontSize: 16 },
   deliveryText: { flex: 1, fontSize: 11 },

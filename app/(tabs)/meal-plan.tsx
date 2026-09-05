@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Image } from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import Header from '@/components/Header';
 import StatBadge from '@/components/StatBadge';
@@ -14,8 +14,27 @@ const DAYS = [
 ];
 
 const SWAPS = [
-  { name: 'Egg White Burrito Bowl', kcal: '540 kcal', protein: '42g Protein', credits: '+0 Credits' },
-  { name: 'Soya Tikka & Mash', kcal: '560 kcal', protein: '40g Protein', credits: '+0 Credits' },
+  {
+    name: 'Egg White Burrito Bowl',
+    kcal: '540 kcal',
+    protein: '42g Protein',
+    credits: '+0 Credits',
+    image: require('@/assets/images/egg-burrito.jpg'),
+  },
+  {
+    name: 'Herb Chicken & Quinoa',
+    kcal: '620 kcal',
+    protein: '48g Protein',
+    credits: '+0 Credits',
+    image: require('@/assets/images/chicken-quinoa.jpg'),
+  },
+  {
+    name: 'Salmon Avocado Bowl',
+    kcal: '650 kcal',
+    protein: '45g Protein',
+    credits: '+0 Credits',
+    image: require('@/assets/images/salmon-avocado.jpg'),
+  },
 ];
 
 export default function MealPlanScreen() {
@@ -83,7 +102,11 @@ export default function MealPlanScreen() {
 
           {/* Meal Image */}
           <View style={[styles.mealImageBox, { backgroundColor: theme.bgPrimary }]}>
-            <Text style={styles.mealEmoji}>🍗🥦🍚</Text>
+            <Image
+              source={require('@/assets/images/teriyaki-paneer.jpg')}
+              style={styles.mealRealImage}
+              resizeMode="cover"
+            />
           </View>
 
           {/* Prepared By */}
@@ -162,7 +185,7 @@ export default function MealPlanScreen() {
             {SWAPS.map((item, idx) => (
               <View key={idx} style={[styles.swapCard, { backgroundColor: theme.bgCard, borderColor: theme.border }]}>
                 <View style={[styles.swapImageBox, { backgroundColor: theme.bgPrimary }]}>
-                  <Text style={styles.swapEmoji}>🥣</Text>
+                  <Image source={item.image} style={styles.swapRealImage} resizeMode="cover" />
                 </View>
                 <Text style={[styles.swapCreditBadge, { color: theme.green }]}>{item.credits} (Included)</Text>
                 <Text style={[styles.swapName, { color: theme.textPrimary }]}>{item.name}</Text>
@@ -221,9 +244,15 @@ const styles = StyleSheet.create({
   chefBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6 },
   chefBadgeText: { fontSize: 11, fontWeight: 'bold' },
   mealImageBox: {
-    height: 150, borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginBottom: 12,
+    height: 180,
+    borderRadius: 14,
+    overflow: 'hidden',
+    marginBottom: 12,
   },
-  mealEmoji: { fontSize: 56 },
+  mealRealImage: {
+    width: '100%',
+    height: '100%',
+  },
 
   preparedRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
   preparedText: { fontSize: 12 },
@@ -260,12 +289,18 @@ const styles = StyleSheet.create({
   swapTitle: { fontSize: 16, fontWeight: 'bold' },
   swapCard: {
     borderRadius: 14, padding: 12,
-    marginRight: 12, width: 190, borderWidth: 1,
+    marginRight: 12, width: 210, borderWidth: 1,
   },
   swapImageBox: {
-    height: 90, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginBottom: 8,
+    height: 110,
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: 8,
   },
-  swapEmoji: { fontSize: 36 },
+  swapRealImage: {
+    width: '100%',
+    height: '100%',
+  },
   swapCreditBadge: { fontSize: 10, fontWeight: 'bold', marginBottom: 6 },
   swapName: { fontSize: 13, fontWeight: '600', marginBottom: 4 },
   swapStats: { fontSize: 11, marginBottom: 10 },
