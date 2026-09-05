@@ -114,6 +114,15 @@ export default function LoginScreen() {
         ]}
         showsVerticalScrollIndicator={false}
       >
+        {/* Top Back Navigation */}
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.replace('/splash')}
+          activeOpacity={0.75}
+        >
+          <Text style={[styles.backButtonText, { color: theme.textMuted }]}>‹ Back to Welcome</Text>
+        </TouchableOpacity>
+
         {/* Brand Header */}
         <View style={styles.brandSection}>
           <View style={[styles.brandLogoBox, { backgroundColor: theme.bgCard, borderColor: theme.green }]}>
@@ -139,7 +148,10 @@ export default function LoginScreen() {
                   key={r.id}
                   style={[
                     styles.roleTab,
-                    isActive && { backgroundColor: theme.green },
+                    {
+                      backgroundColor: isActive ? theme.green : theme.bgPrimary,
+                      borderColor: isActive ? theme.green : theme.border,
+                    },
                   ]}
                   onPress={() => handleRoleChange(r.id)}
                   activeOpacity={0.8}
@@ -148,7 +160,7 @@ export default function LoginScreen() {
                   <Text
                     style={[
                       styles.roleTabTitle,
-                      { color: isActive ? (theme.isDark ? '#090D16' : '#FFFFFF') : theme.textMuted },
+                      { color: isActive ? (theme.isDark ? '#090D16' : '#FFFFFF') : theme.textPrimary },
                     ]}
                   >
                     {r.title}
@@ -281,6 +293,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
+  backButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 4,
+    marginBottom: 8,
+    alignSelf: 'flex-start',
+  },
+  backButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+
   roleSelectorWrapper: {
     borderRadius: 16,
     padding: 12,
@@ -296,47 +319,49 @@ const styles = StyleSheet.create({
   },
   roleTabs: {
     flexDirection: 'row',
-    gap: 6,
+    flexWrap: 'wrap',
+    gap: 8,
   },
   roleTab: {
-    flex: 1,
+    width: '48.5%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
-    paddingVertical: 10,
-    borderRadius: 10,
+    gap: 8,
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1,
   },
   roleTabEmoji: {
-    fontSize: 16,
+    fontSize: 18,
   },
   roleTabTitle: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
   },
 
   roleCard: {
     borderRadius: 20,
-    padding: 20,
+    padding: 16,
     borderWidth: 1,
     marginBottom: 16,
   },
   roleCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 16,
+    alignItems: 'center',
+    marginBottom: 14,
     gap: 8,
   },
   portalHeading: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   portalDesc: {
     fontSize: 12,
     lineHeight: 16,
-    maxWidth: 240,
+    flex: 1,
   },
   rolePill: {
     paddingHorizontal: 10,

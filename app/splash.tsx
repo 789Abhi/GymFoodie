@@ -1,9 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { router } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
+import { useGymFoodieStore } from '@/store/useGymFoodieStore';
 
 export default function SplashScreen() {
   const theme = useTheme();
+  const { setRole, login } = useGymFoodieStore();
+
+  const handleInstantMember = () => {
+    setRole('user');
+    login();
+    router.replace('/(tabs)/home');
+  };
 
   return (
     <ScrollView style={[styles.scroll, { backgroundColor: theme.bgPrimary }]} contentContainerStyle={styles.container} bounces={false}>
@@ -27,7 +35,7 @@ export default function SplashScreen() {
       {/* Hero Image Placeholder */}
       <View style={[styles.heroImage, { backgroundColor: theme.bgCard, borderColor: theme.border }]}>
         <Text style={styles.heroEmoji}>🥗🏋️</Text>
-        <Text style={[styles.heroLabel, { color: theme.textMuted }]}>Chef-Prepared Macro Meals</Text>
+        <Text style={[styles.heroLabel, { color: theme.textMuted }]}>Chef-Prepared Macro Meals & Gym Access</Text>
       </View>
 
       {/* Description */}
@@ -38,26 +46,37 @@ export default function SplashScreen() {
         <Text style={{ color: theme.green, fontWeight: '600' }}>nutrition tracking</Text>.
       </Text>
 
-      {/* Primary CTA */}
+      {/* Primary CTA: Choose Role / Sign In */}
       <TouchableOpacity
         style={[styles.primaryBtn, { backgroundColor: theme.green }]}
-        onPress={() => router.replace('/(tabs)/home')}
+        onPress={() => router.push('/login')}
         activeOpacity={0.8}
       >
         <Text style={[styles.primaryBtnText, { color: theme.isDark ? '#090D16' : '#FFFFFF' }]}>
-          Get Started / Go to Dashboard
+          Select Login Role & Sign In
         </Text>
         <Text style={[styles.arrowIcon, { color: theme.isDark ? '#090D16' : '#FFFFFF' }]}>›</Text>
       </TouchableOpacity>
 
-      {/* Secondary CTA */}
+      {/* Secondary CTA: Quick Member Demo */}
       <TouchableOpacity
         style={[styles.secondaryBtn, { borderColor: theme.border }]}
-        onPress={() => router.replace('/(tabs)/home')}
+        onPress={handleInstantMember}
         activeOpacity={0.8}
       >
-        <Text style={[styles.secondaryBtnText, { color: theme.textPrimary }]}>Enter as Abhishek (Demo)</Text>
+        <Text style={[styles.secondaryBtnText, { color: theme.textPrimary }]}>Instant Member Access (Demo)</Text>
         <Text style={[styles.arrowIconDark, { color: theme.textPrimary }]}>›</Text>
+      </TouchableOpacity>
+
+      {/* Direct Partner Admin Link */}
+      <TouchableOpacity
+        style={styles.adminLink}
+        onPress={() => router.push('/login')}
+        activeOpacity={0.75}
+      >
+        <Text style={[styles.adminLinkText, { color: theme.textMuted }]}>
+          👑 Gym Admin • Kitchen Admin • Super Admin ➔
+        </Text>
       </TouchableOpacity>
 
       {/* Security Note */}
@@ -139,6 +158,17 @@ const styles = StyleSheet.create({
   },
   secondaryBtnText: { fontSize: 15, fontWeight: '500' },
   arrowIconDark: { fontSize: 20, marginLeft: 8 },
+
+  adminLink: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  adminLinkText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
 
   securityRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   securityText: { fontSize: 12 },

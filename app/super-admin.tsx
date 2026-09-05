@@ -1538,6 +1538,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+    flex: 1,
+    flexShrink: 1,
   },
   hqLogoCircle: {
     width: 44,
@@ -2004,11 +2006,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 4,
   },
   execCardTag: {
     fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 0.5,
+    flexShrink: 1,
   },
   execCardVal: {
     fontSize: 18,
